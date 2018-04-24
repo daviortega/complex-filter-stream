@@ -15,7 +15,8 @@ Filter out objects that don't match a series of filtering requirements.
 ```json
 [
 	{
-		"type": "simple",
+		"type": "filter",
+		"not": false,
 		"searchFor": "search string",
 		"searchOn": "microscopist",
 		"searchType": "contains"
@@ -27,7 +28,11 @@ Notice that the `filter object` is part of an array. That is because `complex-fi
 
 #### `type`
 
-The `type` field can accept four values: `simple`, `AND`, `OR` and `NOT`. We will talk extensively about it soon enough.
+The `type` field can accept three values: `filter`, `AND` and `OR`. We will talk extensively about it soon enough.
+
+#### `not`
+
+The `not` field takes either `false` or `true`. If not present it defaults to `false`.
 
 #### `searchFor`
 
@@ -76,47 +81,119 @@ To do that we need two filter requirements, let's see how to organize them:
 ```json
 [
 	{
-		"type": "AND",
+		"type": "filter",
 		"searchFor": 80880,
 		"searchOn": "NCBItaxID",
 		"searchType": "exact",
-		"next": {
-			"type": "simple",
-			"searchFor": "Gavin Murphy",
-			"searchOn": "microscopist",
-			"searchType": "exact"
-		}
+	},
+	{
+		"type": "filter",
+		"searchFor": "Gavin Murphy",
+		"searchOn": "microscopist",
+		"searchType": "exact"
 	}
 ]
 ```
 
-so... `complex-filter-stream` will look for the `next` field in the search box if the `type` of filter is `AND` or `OR`. In contrast, `simple` and `NOT` does not read `next` filter requirement and if any exists will be ignored.
+so... the default association in `complex-filter-stream` is `AND`. As we add `type:filter` objects to the stack, they will be considered in sequence as in `AND` form.
 
-Let's build a filter for objects with `NCBItaxID` as `80880` **AND** `microscopist` as `Gavin Murphy` **OR** `Matt Swulius`:
+Now, let's build a filter for objects with `NCBItaxID` as `80880` **AND** `microscopist` as `Gavin Murphy` **OR** `Matt Swulius`:
 
 ```json
 [
 	{
-		"type": "AND",
+		"type": "filter",
 		"searchFor": 80880,
 		"searchOn": "NCBItaxID",
 		"searchType": "exact",
-		"next": {
-			"type": "OR",
-			"searchFor": "Gavin Murphy",
-			"searchOn": "microscopist",
-			"searchType": "exact",
-			"next": {
-				"type": "simple",
+	},
+	{
+		"type": "OR",
+		"args": [
+			{
+				"type": "filter",
+				"searchFor": "Gavin Murphy",
+				"searchOn": "microscopist",
+				"searchType": "exact"
+			},
+			{	"type": "filter",
 				"searchFor": "Matt Suwlius",
 				"searchOn": "microscopist",
 				"searchType": "exact",
 			}
-		}
-	}
+		]
 ]
 ```
 
+As we can see `complex-filter-stream` uses a different `type` of filter object to listen to associations.
 
+Now, let's build a filter for objects with `NCBItaxID` as `80880` **AND** `microscopist` as `Gavin Murphy` **OR** `Matt Swulius`, but from all the objects with `Matt Swulius` let's only filter in the ones with `lab:"Jensen Lab"`:
 
+```json
+[
+	{
+		"type": "filter",
+		"searchFor": 80880,
+		"searchOn": "NCBItaxID",
+		"searchType": "exact",
+	},
+	{
+		"type": "OR",
+		"args": [
+			{
+				"type": "filter",
+				"searchFor": "Gavin Murphy",
+				"searchOn": "microscopist",
+				"searchType": "exact"
+			},
+			{
+				"type": "AND",
+				"args": [
+					{	"type": "filter",
+						"searchFor": "Matt Suwlius",
+						"searchOn": "microscopist",
+						"searchType": "exact",
+					},
+					{	"type": "filter",
+						"searchFor": "Jensen Lab",
+						"searchOn": "lab",
+						"searchType": "exact",
+					},
+				]
+			}
+		]
+]
+```
 
+If we would like to make the `lab` requirement to all of them:
+
+```json
+[
+	{
+		"type": "filter",
+		"searchFor": 80880,
+		"searchOn": "NCBItaxID",
+		"searchType": "exact",
+	},
+	{	"type": "filter",
+		"searchFor": "Jensen Lab",
+		"searchOn": "lab",
+		"searchType": "exact",
+	},
+	{
+		"type": "OR",
+		"args": [
+			{
+				"type": "filter",
+				"searchFor": "Gavin Murphy",
+				"searchOn": "microscopist",
+				"searchType": "exact"
+			},
+			{	"type": "filter",
+				"searchFor": "Matt Suwlius",
+				"searchOn": "microscopist",
+				"searchType": "exact",
+			}
+		]
+]
+```
