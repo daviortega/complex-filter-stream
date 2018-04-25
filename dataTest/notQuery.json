@@ -1,0 +1,9 @@
+[
+	{
+		"type": "filter",
+		"not": true,
+		"searchFor": "Caltech",
+		"searchOn": "institution",
+		"searchType": "contains"
+	}
+]

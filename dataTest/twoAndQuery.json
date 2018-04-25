@@ -1,0 +1,16 @@
+[
+	{
+		"type": "filter",
+		"not": false,
+		"searchFor": "Matt Swulius",
+		"searchOn": "microscopist",
+		"searchType": "contains"
+	},
+	{
+		"type": "filter",
+		"not": false,
+		"searchFor": "Caltech",
+		"searchOn": "institution",
+		"searchType": "contains"
+	}
+]

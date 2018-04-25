@@ -165,6 +165,9 @@ Now, let's build a filter for objects with `NCBItaxID` as `80880` **AND** `micro
 ]
 ```
 
+In this case, we had to *declare* another type of association (`AND`). So as a rule of thumb, everytime that there is a change in association type (`AND` or `OR`), a new `type` of association must be declared.
+
+
 If we would like to make the `lab` requirement to all of them:
 
 ```json

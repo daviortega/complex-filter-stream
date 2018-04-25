@@ -1,0 +1,24 @@
+[
+	{
+		"type": "filter",
+		"searchFor": "Campylobacter jejuni",
+		"searchOn": "speciesName",
+		"searchType": "exact"
+	},
+	{
+		"type": "OR",
+		"args": [
+			{
+				"type": "filter",
+				"searchFor": "Davi Ortega",
+				"searchOn": "microscopist",
+				"searchType": "exact"
+			},
+			{	"type": "filter",
+				"searchFor": "Alasdair McDowall",
+				"searchOn": "microscopist",
+				"searchType": "exact"
+			}
+		]
+	}
+]

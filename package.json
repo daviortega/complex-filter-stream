@@ -1,0 +1,32 @@
+{
+  "name": "complex-filter-stream",
+  "version": "0.1.0",
+  "description": "Filter out objects that don't match a series of filtering options.",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_PATH=node_modules node_modules/.bin/nyc node_modules/.bin/mocha --reporter mocha-pretty-bunyan-nyan $(find src -name '*tests.js')"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daviortega/complex-filter-stream.git"
+  },
+  "author": "Davi Ortega",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daviortega/complex-filter-stream/issues"
+  },
+  "homepage": "https://github.com/daviortega/complex-filter-stream#readme",
+  "dependencies": {
+    "merge2": "^1.2.1",
+    "pumpify": "^1.4.0"
+  },
+  "devDependencies": {
+    "bunyan": "^1.8.12",
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
+    "mocha": "^5.1.1",
+    "mocha-pretty-bunyan-nyan": "^1.0.4",
+    "nyc": "^11.7.1",
+    "through2": "^2.0.3"
+  }
+}

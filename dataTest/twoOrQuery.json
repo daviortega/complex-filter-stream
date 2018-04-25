@@ -1,0 +1,18 @@
+[
+	{
+		"type": "OR",
+		"args": [
+			{
+				"type": "filter",
+				"searchFor": "Cristina Iancu",
+				"searchOn": "microscopist",
+				"searchType": "exact"
+			},
+			{	"type": "filter",
+				"searchFor": "Matt Swulius",
+				"searchOn": "microscopist",
+				"searchType": "exact"
+			}
+		]
+	}
+]
