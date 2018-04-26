@@ -1,4 +1,5 @@
 # complex-filter-stream
+[![Build Status](https://travis-ci.org/daviortega/complex-filter-stream.svg?branch=master)](https://travis-ci.org/daviortega/complex-filter-stream)
 
 Filter out objects that don't match a series of filtering requirements.
 
