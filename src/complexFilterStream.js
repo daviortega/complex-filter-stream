@@ -8,7 +8,7 @@ const CombineStream = require('combine-stream')
 const bunyan = require('bunyan')
 const log = bunyan.createLogger({
     name: 'queryParser',
-    level: 'info'
+    level: 'error'
 })
 
 const SingleFilterStream = require('./SingleFilterStream')

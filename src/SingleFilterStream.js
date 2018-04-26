@@ -12,7 +12,7 @@ class SingleFilterStream extends Transform {
 		this.not = not || false
 		this.log = bunyan.createLogger({
 			name: 'SingleFilterStream',
-			level: 'info'
+			level: 'error'
 		})
 	}
 
