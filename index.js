@@ -1,7 +1,3 @@
 'use strict'
 
-const complexFilterStream = require('./src/complexFilterStream')
-
-module.exports = {
-	complexFilterStream
-}
+module.exports = require('./src/complexFilterStream')
