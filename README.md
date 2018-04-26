@@ -75,10 +75,10 @@ The `searchType` field is used to identify the type of filter it should be used.
 `regex`: passes if the `javascript` flavored `regex` in `searchFor` matches `object[searchOn]`.
 
 There is also support for values:
-`exactValue`: passes if the value of `searchFor` is exactly the value of `object[searchOn]`. 
-`lessThan`: passes if the value of `object[searchOn]` is smaller than `searchFor`.
-`greaterThan`: passes if the value of `object[searchOn]` is larger than `searchFor`.
-`between`: passes if the value of `object[searchOn]` is in between two semi-colon separated values in `searchFor`.
+`exactValue`: passes if the value of `searchFor` is exactly the value of `object[searchOn]`.   
+`lessThan`: passes if the value of `object[searchOn]` is smaller than `searchFor`.  
+`greaterThan`: passes if the value of `object[searchOn]` is larger than `searchFor`.  
+`between`: passes if the value of `object[searchOn]` is in between two semi-colon separated values in `searchFor`.  
 
 > In this cases, NOT also works and invert the search intervals if `true`
 
