@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
 Filter out objects that don't match a series of filtering requirements.
 
-##TL;DR
+## TL;DR
 
 
 ## Basic usage
@@ -230,6 +230,7 @@ If we would like to make the `lab` requirement to all of them:
 				"searchType": "exact",
 			}
 		]
+	}
 ]
 ```
 
