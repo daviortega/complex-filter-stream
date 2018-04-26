@@ -234,4 +234,3 @@ If we would like to make the `lab` requirement to all of them:
 	}
 ]
 ```
-
