@@ -1,6 +1,7 @@
 # complex-filter-stream
 [![Build Status](https://travis-ci.org/daviortega/complex-filter-stream.svg?branch=master)](https://travis-ci.org/daviortega/complex-filter-stream)
-
+[![Coverage Status](https://coveralls.io/repos/github/daviortega/complex-filter-stream/badge.svg?branch=master)](https://coveralls.io/github/daviortega/complex-filter-stream?branch=master)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
 Filter out objects that don't match a series of filtering requirements.
 
 ##TL;DR
