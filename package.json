@@ -1,6 +1,6 @@
 {
   "name": "complex-filter-stream",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Transform stream with complex filter for objects",
   "main": "index.js",
   "scripts": {
