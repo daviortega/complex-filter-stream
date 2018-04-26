@@ -5,10 +5,30 @@ Filter out objects that don't match a series of filtering requirements.
 ##TL;DR
 
 
+## Basic usage
 
-## How to build the filter.
+```javascript
+const complexFilterStream = require('complex-filter-stream')
+const readableStream = getaReadableObjectModeStreamSomeHow()
 
-`complex-filter-stream` is a `Transform` stream that takes a series of filtering requirements. They are passed to the stream as a json object.
+const queryStack = [
+	{
+		"type": "filter",
+		"not": false,
+		"searchFor": "chocolate",
+		"searchOn": "flavor",
+		"searchType": "contains"
+	}
+]
+
+const myFilter = complexFilterStream(queryStack)
+
+readableStream.pipe(myFilter)
+```
+
+## How to build the queryStack.
+
+`complex-filter-stream` is a `Transform` stream made out of a bundle of transform streams built based on a series of filtering requirements. They are passed to the stream as a json object.
 
 ### A simple filter
 
@@ -49,7 +69,16 @@ The `searchType` field is used to identify the type of filter it should be used.
 `contains`: passes if the value of `searchFor` matches anywhere in the `object[searchOn]`.  
 `exact`: passes if the value of `searchFor` matches exactly the `object[searchOn]`.  
 `startsWith`: passes if the value of `searchFor` matches the beginning of the `object[searchOn]`.  
-`endsWith`: passes if the value of `searchFor` matches the end of the `object[searchOn]`.
+`endsWith`: passes if the value of `searchFor` matches the end of the `object[searchOn]`.  
+`regex`: passes if the `javascript` flavored `regex` in `searchFor` matches `object[searchOn]`.
+
+There is also support for values:
+`exactValue`: passes if the value of `searchFor` is exactly the value of `object[searchOn]`. 
+`lessThan`: passes if the value of `object[searchOn]` is smaller than `searchFor`.
+`greaterThan`: passes if the value of `object[searchOn]` is larger than `searchFor`.
+`between`: passes if the value of `object[searchOn]` is in between two semi-colon separated values in `searchFor`.
+
+> In this cases, NOT also works and invert the search intervals if `true`
 
 ### A complex filter.
 
@@ -162,6 +191,7 @@ Now, let's build a filter for objects with `NCBItaxID` as `80880` **AND** `micro
 				]
 			}
 		]
+	}
 ]
 ```
 
@@ -200,3 +230,4 @@ If we would like to make the `lab` requirement to all of them:
 		]
 ]
 ```
+

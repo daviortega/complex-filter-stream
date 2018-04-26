@@ -1,8 +1,0 @@
-[
-	{
-		"type": "filter",
-		"searchFor": "Alasdair McDowall",
-		"searchOn": "microscopist",
-		"searchType": "contains"
-	}
-]

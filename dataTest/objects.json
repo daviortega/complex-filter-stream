@@ -42,7 +42,7 @@
     "date": 1180483200,
     "NBCItaxID": 80880,
     "artNotes": "Tilt series notes: Fe-metabolizing bacterium that makes parallel membrane sheets for photosynthesis.  Membrane topology is the primary interest.\r\nKeywords: photosynthetic membrane sheets, parallel membranes\n",
-    "speciesName": "Rhodopseudomonas palustris",
+    "speciesName": "Campylobacter jejuni",
     "tiltSingleDual": 1,
     "defocus": -10,
     "dosage": 200,
@@ -67,6 +67,32 @@
     "sid": "am2009-03-25-16"
     },
     {
+        "date": 1237939200,
+        "NBCItaxID": 80880,
+        "speciesName": "Campylobacter jejuni",
+        "tiltSingleDual": 1,
+        "tiltConstant": 1,
+        "microscopist": "Davi R. Ortega",
+        "institution": "Caltech",
+        "lab": "Jensen Lab",
+        "sid": "am2009-03-25-16"
+    },
+    {
+    "date": 1132617600,
+    "NBCItaxID": 80880,
+    "artNotes": "Tilt series notes: H. neapolitanus cell h1 in normal conditions\r\nKeywords: carboxysomes, internal granules, partial carboxysomes, irregular carboxysome\n",
+    "speciesName": "Halothiobacillus neapolitanus",
+    "strain": "c2",
+    "tiltSingleDual": 1,
+    "defocus": -12,
+    "dosage": 150,
+    "tiltConstant": 1,
+    "microscopist": "Cristina Iancu",
+    "institution": "notCaltech",
+    "lab": "Jensen Lab",
+    "sid": "ci2005-11-22-1"
+   },
+   {
     "date": 1132617600,
     "NBCItaxID": 80880,
     "artNotes": "Tilt series notes: H. neapolitanus cell h1 in normal conditions\r\nKeywords: carboxysomes, internal granules, partial carboxysomes, irregular carboxysome\n",
@@ -124,6 +150,21 @@
     "microscopist": "Matt Swulius",
     "institution": "Penn State",
     "lab": "Swulius Lab",
+    "sid": "ci2005-11-22-3"
+   },
+   {
+    "date": 1132617600,
+    "NBCItaxID": 90880,
+    "artNotes": "Tilt series notes: H. neapolitanus cell h3 in normal conditions\r\nKeywords: carboxysomes, internal granules\n",
+    "speciesName": "Pseudomonas aeruginosa",
+    "strain": "c2",
+    "tiltSingleDual": 1,
+    "defocus": -11,
+    "dosage": 190,
+    "tiltConstant": 1,
+    "microscopist": "Ariane Briegel",
+    "institution": "Caltech",
+    "lab": "Briegel Lab",
     "sid": "ci2005-11-22-3"
    }
 
