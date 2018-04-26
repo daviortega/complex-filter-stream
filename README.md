@@ -153,6 +153,7 @@ Now, let's build a filter for objects with `NCBItaxID` as `80880` **AND** `micro
 				"searchType": "exact",
 			}
 		]
+	}
 ]
 ```
 
