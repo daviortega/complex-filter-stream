@@ -1358,60 +1358,8 @@ describe('complexFilterStream', function() {
 		})
 	})
 	describe('handling exceptions', function() {
-		it.skip('should throw error if searchFor fields is not found', function() {
-			const expected = [
-				{
-					"date": 1237939200,
-					"NBCItaxID": 80880,
-					"speciesName": "Campylobacter jejuni",
-					"tiltSingleDual": 1,
-					"tiltConstant": 1,
-					"microscopist": "Davi Ortega",
-					"institution": "ETDB",
-					"lab": "Jensen Lab",
-					"sid": "am2009-03-25-16"
-				}
-			]
-			const objectStream = Readable({objectMode: true})
-			const objects = require(objectsFilename)
-			objects.map((object) => {
-				objectStream.push(object)
-			})
-			objectStream.push(null)
-			const queryStack = [
-				{
-					"type": "filter",
-					"not": false,
-					"searchFor": "Davi Ortega",
-					"searchOn": "biologist",
-					"searchType": "exact"
-				}
-			]
-			const filterStream = complexFilterStream(queryStack)
-			const results = []
-			objectStream
-				.pipe(filterStream)
-					.on('data', (chunk) => {
-						results.push(chunk)
-					})
-					 .on('finish', () => {
-						expect(results).eql(expected)
-					})
-		})
-		it.skip('should throw error if searchFor fields is not found, unless skip is true', function() {
-			const expected = [
-				{
-					"date": 1237939200,
-					"NBCItaxID": 80880,
-					"speciesName": "Campylobacter jejuni",
-					"tiltSingleDual": 1,
-					"tiltConstant": 1,
-					"microscopist": "Davi Ortega",
-					"institution": "ETDB",
-					"lab": "Jensen Lab",
-					"sid": "am2009-03-25-16"
-				}
-			]
+		it('should skip if searchFor fields is not found', function() {
+			const expected = []
 			const objectStream = Readable({objectMode: true})
 			const objects = require(objectsFilename)
 			objects.map((object) => {
