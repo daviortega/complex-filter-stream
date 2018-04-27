@@ -7,7 +7,7 @@ const CombineStream = require('combine-stream')
 
 const bunyan = require('bunyan')
 const log = bunyan.createLogger({
-    name: 'queryParser',
+    name: 'complexFilterStream',
     level: 'error'
 })
 
@@ -62,7 +62,10 @@ const parseQueryStack = (queryStack, type = "AND") => {
         const orBundleStream = new CombineStream(orStack)
         finalStream = pumpify.obj(orBundleStream, unique())
     }
-    return finalStream
+    if (finalStream)
+        return finalStream
+    else
+        throw Error('Something is wrong with your queryStack')
 }
 
 module.exports = (queryStack) => {

@@ -21,6 +21,7 @@
   "dependencies": {
     "bunyan": "^1.8.12",
     "combine-stream": "^0.0.4",
+    "lodash": "^4.17.10",
     "pumpify": "^1.4.0",
     "unique-stream": "^2.2.1"
   },

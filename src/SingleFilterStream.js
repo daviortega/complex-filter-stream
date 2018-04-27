@@ -1,6 +1,7 @@
 'use strict'
 
 const Transform = require('stream').Transform
+const _ = require('lodash')
 const bunyan = require('bunyan')
 
 module.exports =
@@ -17,7 +18,7 @@ class SingleFilterStream extends Transform {
 	}
 
 	_transform(chunk, encoding, done) {
-		const value = chunk[this.rule.searchOn]
+		const value = _.get(chunk, this.rule.searchOn)
 		switch (typeof this.rule.parsedQuery) {
 			case 'string':
 				const stringToMatch = value

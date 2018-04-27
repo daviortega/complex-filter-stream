@@ -1,15 +1,20 @@
 /* eslint-disable no-magic-numbers */
 'use strict'
 
-const expect = require('chai').expect
+const chai = require('chai')
 const path = require('path')
 const fs = require('fs')
 const Readable = require('stream').Readable
+
+const expect = chai.expect
+const should = chai.should
+
 
 const complexFilterStream = require('./complexFilterStream')
 
 const dataTestPath = path.resolve(__dirname, '..', 'dataTest')
 const objectsFilename = path.resolve(dataTestPath, 'objects.json')
+const nestedObjectsFilename = path.resolve(dataTestPath, 'objects.nested.json')
 
 describe('complexFilterStream', function() {
 	describe('simple queries and different searchTypes', function() {
@@ -1350,6 +1355,144 @@ describe('complexFilterStream', function() {
 				.on('finish', () => {
 					expect(results).eql(expected)
 				})
+		})
+	})
+	describe('handling exceptions', function() {
+		it.skip('should throw error if searchFor fields is not found', function() {
+			const expected = [
+				{
+					"date": 1237939200,
+					"NBCItaxID": 80880,
+					"speciesName": "Campylobacter jejuni",
+					"tiltSingleDual": 1,
+					"tiltConstant": 1,
+					"microscopist": "Davi Ortega",
+					"institution": "ETDB",
+					"lab": "Jensen Lab",
+					"sid": "am2009-03-25-16"
+				}
+			]
+			const objectStream = Readable({objectMode: true})
+			const objects = require(objectsFilename)
+			objects.map((object) => {
+				objectStream.push(object)
+			})
+			objectStream.push(null)
+			const queryStack = [
+				{
+					"type": "filter",
+					"not": false,
+					"searchFor": "Davi Ortega",
+					"searchOn": "biologist",
+					"searchType": "exact"
+				}
+			]
+			const filterStream = complexFilterStream(queryStack)
+			const results = []
+			objectStream
+				.pipe(filterStream)
+					.on('data', (chunk) => {
+						results.push(chunk)
+					})
+					 .on('finish', () => {
+						expect(results).eql(expected)
+					})
+		})
+		it.skip('should throw error if searchFor fields is not found, unless skip is true', function() {
+			const expected = [
+				{
+					"date": 1237939200,
+					"NBCItaxID": 80880,
+					"speciesName": "Campylobacter jejuni",
+					"tiltSingleDual": 1,
+					"tiltConstant": 1,
+					"microscopist": "Davi Ortega",
+					"institution": "ETDB",
+					"lab": "Jensen Lab",
+					"sid": "am2009-03-25-16"
+				}
+			]
+			const objectStream = Readable({objectMode: true})
+			const objects = require(objectsFilename)
+			objects.map((object) => {
+				objectStream.push(object)
+			})
+			objectStream.push(null)
+			const queryStack = [
+				{
+					"type": "filter",
+					"not": false,
+					"searchFor": "Davi Ortega",
+					"searchOn": "biologist",
+					"searchType": "exact"
+				}
+			]
+			const filterStream = complexFilterStream(queryStack)
+			const results = []
+			objectStream
+				.pipe(filterStream)
+					.on('data', (chunk) => {
+						results.push(chunk)
+					})
+					 .on('finish', () => {
+						expect(results).eql(expected)
+					})
+		})
+		it('should understand nested fields', function() {
+			const expected = [
+				{
+					"level1": {
+						"level2": {
+							"date": 1237939200,
+							"NBCItaxID": 80880,
+							"speciesName": "Campylobacter jejuni",
+							"tiltSingleDual": 1,
+							"tiltConstant": 1,
+							"microscopist": "Davi Ortega",
+							"institution": "ETDB",
+							"lab": "Jensen Lab",
+							"sid": "am2009-03-25-16"
+						}
+					}
+				}
+			]
+			const objectStream = Readable({objectMode: true})
+			const objects = require(nestedObjectsFilename)
+			objects.map((object) => {
+				objectStream.push(object)
+			})
+			objectStream.push(null)
+			const queryStack = [
+				{
+					"type": "filter",
+					"not": false,
+					"searchFor": "Davi Ortega",
+					"searchOn": "level1.level2.microscopist",
+					"searchType": "exact"
+				}
+			]
+			const filterStream = complexFilterStream(queryStack)
+			const results = []
+			objectStream
+				.pipe(filterStream)
+					.on('data', (chunk) => {
+						results.push(chunk)
+					})
+					 .on('finish', () => {
+						expect(results).eql(expected)
+					})
+		})
+		it('should throw error if rules are bad', function() {
+			const badQueryStack = [ 
+				{ 
+					type: 'simple',
+					searchOn: 'microscopist',
+					searchType: 'contains',
+					searchFor: 'Gavin Murphy'
+				} 
+			]
+
+			expect( () => { complexFilterStream(badQueryStack) }).to.throw('Something is wrong with your queryStack')
 		})
 	})
 })
